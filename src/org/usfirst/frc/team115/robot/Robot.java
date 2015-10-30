@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team115.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -19,25 +22,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-	public GearTooth isTrue, isFalse;
+	public AnalogInput test;
+	//public GearTooth isTrue, isFalse;
 	public boolean limit, firstCall;
-	public Timer timer;
-	double oldValueTrue, oldValueFalse, oldTime;
-
+	//public Timer timer;
+	//double oldValueTrue, oldValueFalse, oldTime;
+	public double getVoltage;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+    	//limit = false;
+    	//firstCall = true;
+    	getVoltage = 0;
+    	test = new AnalogInput(0);
     	limit = false;
-    	firstCall = true;
     	
-		isTrue = new GearTooth(1);
+		/*isTrue = new GearTooth(0);
 		isTrue.setSemiPeriodMode(true);
 		isTrue.setUpdateWhenEmpty(false);
 		oldValueTrue = isTrue.get();
 		
-		isFalse = new GearTooth(1);
+		isFalse = new GearTooth(0);
 		isFalse.setSemiPeriodMode(false);
 		isFalse.setUpdateWhenEmpty(false);
 		oldValueFalse = isFalse.get();
@@ -45,7 +52,7 @@ public class Robot extends IterativeRobot {
     	timer = new Timer();
     	timer.start();
     	oldTime = timer.get();
-		
+    	*/
     	oi = new OI();
     }
 	
@@ -79,7 +86,18 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	
-    	double newValueTrue = isTrue.get();
+    	getVoltage = test.getVoltage();
+    	SmartDashboard.putNumber("voltage" , getVoltage);
+    	
+    	/* if (getVoltage >= 1) {
+    		limit = true;
+    	} else {
+    		limit = false;
+    	}
+    	
+    	SmartDashboard.putBoolean("limit", limit); */
+    	
+    	/*double newValueTrue = isTrue.get();
     	double newValueFalse = isFalse.get();
     	double newTime = timer.get();
     	
@@ -99,7 +117,7 @@ public class Robot extends IterativeRobot {
     	oldValueTrue = newValueTrue;
     	oldValueFalse = newValueFalse;
     	oldTime = newTime;
-    	firstCall = false;
+    	firstCall = false; */
     	
         Scheduler.getInstance().run();
     }
