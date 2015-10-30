@@ -86,10 +86,8 @@ public class Robot extends IterativeRobot {
     	if ((!firstCall) && ((oldValueTrue == newValueTrue || oldValueFalse == newValueTrue) && ((oldTime-newTime) >= 0.010))) {
 	    	if (newValueTrue != newValueFalse) {
 	    		limit = true;
-	    		SmartDashboard.putBoolean("Limit Switch", limit);
 	    	} else if (newValueTrue == newValueFalse) {
 	    		limit = false;
-	    		SmartDashboard.putBoolean("Limit Switch", limit);
 	    		if (newValueTrue >= 1.0 && newValueFalse >= 1.0){
 	    			isTrue.reset();
 	    			isFalse.reset();
@@ -97,6 +95,7 @@ public class Robot extends IterativeRobot {
 	    	}
     	}
     	
+    	SmartDashboard.putBoolean("Limit Switch", limit);
     	oldValueTrue = newValueTrue;
     	oldValueFalse = newValueFalse;
     	oldTime = newTime;
